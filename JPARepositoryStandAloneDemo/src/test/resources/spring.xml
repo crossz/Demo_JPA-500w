@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/data/jpa
+http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/websocket
+http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+
+
+
+
+
+
+<!--     <context:property-placeholder location="classpath:config.properties"/> -->
+	<context:annotation-config/>
+
+    <!-- spring扫描注解的配置           -->    
+    <context:component-scan base-package="com.caiex"/>  
+	<!-- 
+    <context:component-scan base-package="com.caiex">
+	    <context:exclude-filter type="regex" expression="com.caiex.*"/>
+    </context:component-scan>
+	-->
+
+
+
+    <bean id="ds1"
+          class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
+<!--         <property name="url" value="jdbc:mysql://192.168.1.5:3306/testing?useUnicode=true&amp;characterEncoding=UTF-8"/> -->
+        <property name="url" value="jdbc:mysql://localhost:3307/testing?useUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="cross"/>
+        <property name="password" value="zheng"/>
+        <!-- <property name="initialSize" value="${jdbc.pool_size}"/> -->
+    </bean>
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="ds1"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        
+<!--         <property name="packagesToScan" value="com.caiex.model"/> -->
+<!--         <property name="persistenceUnitName" value="whatever bla bla" /> -->
+<!--         <property name="jpaProperties"> -->
+<!--             <props> -->
+<!--                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop> -->
+<!--                 <prop key="hibernate.dialect">${hibernate.dialect}</prop> -->
+<!--                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop> -->
+<!--                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop> -->
+<!--                 <prop key="hibernate.cache.default_cache_concurrency_strategy">READ_WRITE</prop> -->
+<!--             </props> -->
+<!--         </property> -->
+    </bean>
+        
+    
+<!--     <jpa:repositories base-package="com.caiex.repositories"/> -->
+<!--                       entity-manager-factory-ref="entityManagerFactory" -->
+<!--                       transaction-manager-ref="transactionManager" -->
+
+
+
+
+<!--     <tx:annotation-driven transaction-manager="transactionManager"/> -->
+
+<!--     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"> -->
+<!--         <property name="entityManagerFactory" ref="entityManagerFactory"/> -->
+<!--     </bean> -->
+
+
+</beans>
